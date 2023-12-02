@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev": "nodemon src/main.ts",
     "start": "node dist/main.js",
-    "lint": "eslint src/**"
+    "lint": "eslint --fix"
   },
   "keywords": [],
   "author": "",
