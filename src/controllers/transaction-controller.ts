@@ -17,16 +17,15 @@ export class TransactionController {
     const { rangeBidValue } = request.body; /* 1000-2000 */
 
     try {
-      const { isValid, intETHValue } =
-        await this.transactionService.validateTransaction(rangeBidValue);
+      const isValid = await this.transactionService.validateTransaction(
+        rangeBidValue
+      );
 
       if (isValid) {
         return response.sendStatus(202);
       }
 
-      return response
-        .status(406)
-        .json({ message: `Transaction not valid. ETH Value: ${intETHValue}` });
+      return response.status(406).json({ message: "Not valid" });
     } catch (error) {
       console.error(error);
       return response.status(500).json({ message: "Error on fetching data" });

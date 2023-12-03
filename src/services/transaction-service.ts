@@ -3,9 +3,7 @@ const COINBASE_API_URL =
 
 /* escrever melhor */
 export class TransactionService {
-  public async validateTransaction(
-    rangeBidValue: string
-  ): Promise<{ isValid: boolean; intETHValue: number }> {
+  public async validateTransaction(rangeBidValue: string): Promise<boolean> {
     const { firstElement, secondElement } =
       this.getRangeBidValues(rangeBidValue);
 
@@ -15,16 +13,10 @@ export class TransactionService {
       const intETHValue = parseInt(data.rates.BRL);
 
       if (firstElement <= intETHValue && intETHValue <= secondElement) {
-        return {
-          isValid: true,
-          intETHValue,
-        };
+        return true;
       }
 
-      return {
-        isValid: false,
-        intETHValue,
-      };
+      return false;
     } catch (error) {
       console.error(`Error validating transaction: ${error}`);
       throw new Error("Error on fetching data");
