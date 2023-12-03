@@ -22,10 +22,10 @@ export class TransactionController {
       );
 
       if (isValid) {
-        return response.status(202).json({ message: "Valid" });
+        return response.status(202).json({ message: "valid" });
       }
 
-      return response.status(406).json({ message: "Not valid" });
+      return response.send({ message: "invalid" });
     } catch (error) {
       console.error(error);
       return response.status(500).json({ message: "Error on fetching data" });
