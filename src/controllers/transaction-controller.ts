@@ -22,7 +22,7 @@ export class TransactionController {
       );
 
       if (isValid) {
-        return response.sendStatus(202);
+        return response.status(202).json({ message: "Valid" });
       }
 
       return response.status(406).json({ message: "Not valid" });
