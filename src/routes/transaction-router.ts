@@ -1,14 +1,21 @@
 import * as express from "express";
 
-import transaction from "../controllers/transaction-controller";
+import { TransactionController } from "../controllers/transaction-controller";
 
-const transactionRouter = express.Router();
+export class TransactionRouter {
+  private transactionController: TransactionController;
 
-/* `transactionRouter.use(express.json());` is setting up the middleware for parsing JSON data in the
-request body. */
+  constructor() {
+    this.transactionController = new TransactionController();
+  }
 
-transactionRouter.use(express.json());
+  public getRouter() {
+    const transactionRouter = express.Router();
+    transactionRouter.use(express.json());
 
-transactionRouter.post("/transaction", transaction.create);
+    transactionRouter.get("/transaction", this.transactionController.read);
+    transactionRouter.post("/transaction", this.transactionController.create);
 
-export default transactionRouter;
+    return transactionRouter;
+  }
+}
