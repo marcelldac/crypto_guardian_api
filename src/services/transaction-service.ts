@@ -9,9 +9,13 @@ export class TransactionService {
       const ETHPrice = await fetch(COINBASE_API_URL);
       const { data } = await ETHPrice.json();
       const intETHValue = parseInt(data.rates.BRL);
-      const isValid = this.isValid(firstElement, secondElement, intETHValue);
+      const isTransactionValid = this.isTransactionValid(
+        firstElement,
+        secondElement,
+        intETHValue
+      );
 
-      return isValid;
+      return isTransactionValid;
     } catch (error) {
       console.error(`Error validating transaction: ${error}`);
       throw new Error("Error on fetching data");
@@ -31,7 +35,7 @@ export class TransactionService {
     };
   }
 
-  private isValid(
+  private isTransactionValid(
     firstElement: number,
     secondElement: number,
     intETHValue: number
