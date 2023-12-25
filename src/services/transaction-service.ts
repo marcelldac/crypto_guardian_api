@@ -1,7 +1,5 @@
-const COINBASE_API_URL =
-  "https://api.coinbase.com/v2/exchange-rates?currency=ETH";
+import { COINBASE_API_URL } from "../constants/index";
 
-/* escrever melhor */
 export class TransactionService {
   public async validateTransaction(rangeBidValue: string): Promise<boolean> {
     const { firstElement, secondElement } =
@@ -11,12 +9,9 @@ export class TransactionService {
       const ETHPrice = await fetch(COINBASE_API_URL);
       const { data } = await ETHPrice.json();
       const intETHValue = parseInt(data.rates.BRL);
+      const isValid = this.isValid(firstElement, secondElement, intETHValue);
 
-      if (firstElement <= intETHValue && intETHValue <= secondElement) {
-        return true;
-      }
-
-      return false;
+      return isValid;
     } catch (error) {
       console.error(`Error validating transaction: ${error}`);
       throw new Error("Error on fetching data");
@@ -34,5 +29,16 @@ export class TransactionService {
       firstElement,
       secondElement,
     };
+  }
+
+  private isValid(
+    firstElement: number,
+    secondElement: number,
+    intETHValue: number
+  ): boolean {
+    if (firstElement <= intETHValue && intETHValue <= secondElement) {
+      return true;
+    }
+    return false;
   }
 }
