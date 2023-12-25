@@ -17,13 +17,11 @@ export class TransactionController {
     const { rangeBidValue } = request.body; /* 1000-2000 */
 
     try {
-      const isValid = await this.transactionService.validateTransaction(
-        rangeBidValue
-      );
+      const isTransactionValid =
+        await this.transactionService.validateTransaction(rangeBidValue);
 
-      if (isValid) {
+      if (isTransactionValid)
         return response.status(202).json({ message: "valid" });
-      }
 
       return response.send({ message: "invalid" });
     } catch (error) {
