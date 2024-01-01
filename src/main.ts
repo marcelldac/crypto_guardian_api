@@ -1,12 +1,13 @@
 import * as express from "express";
 import * as cors from "cors";
-
 import { TransactionRouter } from "./routes/transaction-router";
 
 class App {
   private app: express.Application;
+  private transactionRouter: TransactionRouter;
 
   constructor() {
+    this.transactionRouter = new TransactionRouter();
     this.app = express();
     this.setupMiddleware();
     this.setupRoutes();
@@ -18,8 +19,7 @@ class App {
   }
 
   private setupRoutes() {
-    const transactionRouter = new TransactionRouter().getRouter();
-    this.app.use("/api/v1", transactionRouter);
+    this.app.use("/api/v1", this.transactionRouter.getRouter());
   }
 
   public startServer(port: number, host: string) {
@@ -31,6 +31,6 @@ class App {
 
 const HOST = "localhost";
 const PORT = parseInt(process.env.PORT) || 3000;
-
 const app = new App();
+
 app.startServer(PORT, HOST);
