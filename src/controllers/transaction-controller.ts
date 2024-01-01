@@ -38,7 +38,10 @@ export class TransactionController {
       const ETHPrice = await fetch(COINBASE_API_URL);
       const { data } = await ETHPrice.json();
       const BRLEthereumPrice = data.rates.BRL;
-      return response.status(200).json(BRLEthereumPrice);
+      const payload = {
+        "BRL-ETH": BRLEthereumPrice,
+      };
+      return response.status(200).json(payload);
     } catch (error) {
       console.error(`Error on get bid value: ${error}`);
     }
