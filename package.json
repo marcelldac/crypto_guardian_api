@@ -2,7 +2,7 @@
   "name": "crypto_guardian_api",
   "version": "1.0.0",
   "description": "",
-  "main": "main.ts",
+  "main": "src/main.ts",
   "scripts": {
     "build": "tsc",
     "dev": "nodemon src/main.ts",
