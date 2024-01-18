@@ -1,7 +1,6 @@
 import * as express from "express";
 import * as cors from "cors";
 import { TransactionRouter } from "./routes/transaction-router";
-import sla from "mscrapping";
 
 class App {
   private app: express.Application;
@@ -21,15 +20,6 @@ class App {
 
   private setupRoutes() {
     this.app.use("/api/v1", this.transactionRouter.getRouter());
-    this.app.use("/sla", async (req, res) => {
-      const ms = new MScrapping(
-        "Info Moedas",
-        "https://www.infomoney.com.br/tudo-sobre/criptomoedas/",
-        "#infiniteScroll > article > div > a > h3"
-      );
-      const webscrapping = await ms.start();
-      return res.status(200).json(webscrapping);
-    });
   }
 
   public startServer(port: number, host: string) {
