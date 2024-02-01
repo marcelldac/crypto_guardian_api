@@ -1,4 +1,9 @@
+#node
 node_modules
+#ts
 dist
-.vscode
+#environment
 .env
+#ides
+.vscode
+.fleet
