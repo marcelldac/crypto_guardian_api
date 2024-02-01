@@ -17,7 +17,7 @@ export class App {
   private setupRoutes() {
     this.app.use("/api/v1", this.transactionRouter.getRouter());
   }
-  public startServer(port: number) {
+  startServer(port: number) {
     this.app.listen(port, () => {
       console.log(`App Running on ${port} 🚀`);
     });
