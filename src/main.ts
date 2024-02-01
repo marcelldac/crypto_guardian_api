@@ -7,10 +7,10 @@ export class App {
   constructor() {
     this.transactionRouter = new TransactionRouter();
     this.app = express();
-    this.setupMiddleware();
+    this.setupMiddlewares();
     this.setupRoutes();
   }
-  private setupMiddleware() {
+  private setupMiddlewares() {
     this.app.use(cors());
     this.app.use(express.json());
   }
