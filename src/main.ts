@@ -1,7 +1,7 @@
 import * as express from "express";
 import * as cors from "cors";
 import { TransactionRouter } from "./routes/transaction-router";
-class App {
+export class App {
   private app: express.Application;
   private transactionRouter: TransactionRouter;
   constructor() {
