@@ -1,4 +1,4 @@
-import { COINBASE_API_URL } from "../constants/index";
+import { COINBASE_API_URL } from "../utils";
 
 export class TransactionService {
   public async validateTransaction(rangeBidValue: string): Promise<boolean> {
