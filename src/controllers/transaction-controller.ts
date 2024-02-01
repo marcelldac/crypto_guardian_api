@@ -15,11 +15,10 @@ export class TransactionController {
       const isTransactionValid =
         await this.transactionService.validateTransaction(rangeBidValue);
       if (isTransactionValid)
-        return response.status(202).json({ message: "valid" });
-      return response.send({ message: "invalid" });
+        return response.status(202).json({ message: "valid", error: false });
+      return response.send({ message: "invalid", error: false });
     } catch (error) {
-      console.error(error);
-      return response.status(500).json({ message: "Error on fetching data" });
+      return response.status(500).json({ message: error, error: true });
     }
   };
   public read = async (
@@ -33,9 +32,9 @@ export class TransactionController {
       const payload = {
         "BRL-ETH": BRLEthereumPrice,
       };
-      return response.status(200).json(payload);
+      return response.status(200).json({ message: payload, error: false });
     } catch (error) {
-      console.error(`Error on get bid value: ${error}`);
+      return response.status(500).json({ message: error, error: true });
     }
   };
 }
