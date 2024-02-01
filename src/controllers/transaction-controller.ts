@@ -1,13 +1,8 @@
 import * as express from "express";
 import { TransactionService } from "../services/transaction-service";
-import { COINBASE_API_URL } from "../constants/index";
+import { COINBASE_API_URL, statusCodes } from "../utils";
 export class TransactionController {
   private transactionService: TransactionService;
-  private statusCodes = {
-    Ok: 200,
-    Accepted: 202,
-    InternalServerError: 500,
-  };
   constructor() {
     this.transactionService = new TransactionService();
   }
@@ -21,12 +16,12 @@ export class TransactionController {
         await this.transactionService.validateTransaction(rangeBidValue);
       if (isTransactionValid)
         return response
-          .status(this.statusCodes.Accepted)
+          .status(statusCodes.Accepted)
           .json({ message: "valid", error: false });
       return response.send({ message: "invalid", error: false });
     } catch (error) {
       return response
-        .status(this.statusCodes.InternalServerError)
+        .status(statusCodes.InternalServerError)
         .json({ message: error, error: true });
     }
   };
@@ -36,11 +31,11 @@ export class TransactionController {
       const { data } = await ETHPrice.json();
       const BRLEthereumPrice = data.rates.BRL;
       return response
-        .status(200)
+        .status(statusCodes.Ok)
         .json({ message: `BRL-ETH: ${BRLEthereumPrice}`, error: false });
     } catch (error) {
       return response
-        .status(this.statusCodes.InternalServerError)
+        .status(statusCodes.InternalServerError)
         .json({ message: error, error: true });
     }
   };
