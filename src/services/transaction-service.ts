@@ -2,9 +2,9 @@ import { COINBASE_API_URL } from "../constants/index";
 
 export class TransactionService {
   public async validateTransaction(rangeBidValue: string): Promise<boolean> {
-    const { firstElement, secondElement } =
-      this.getRangeBidValues(rangeBidValue);
     try {
+      const { firstElement, secondElement } =
+        this.separateBidValues(rangeBidValue);
       const ETHPrice = await fetch(COINBASE_API_URL);
       const { data } = await ETHPrice.json();
       const intETHValue = parseInt(data.rates.BRL);
@@ -19,7 +19,7 @@ export class TransactionService {
       throw new Error("Error on fetching data");
     }
   }
-  private getRangeBidValues(rangeBidValue: string): {
+  private separateBidValues(rangeBidValue: string): {
     firstElement: number;
     secondElement: number;
   } {
