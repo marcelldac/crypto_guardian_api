@@ -17,13 +17,12 @@ class App {
   private setupRoutes() {
     this.app.use("/api/v1", this.transactionRouter.getRouter());
   }
-  public startServer(port: number, host: string) {
+  public startServer(port: number) {
     this.app.listen(port, () => {
-      console.log(`App Running on ${host}:${port}`);
+      console.log(`App Running on ${port} 🚀`);
     });
   }
 }
-const HOST = "localhost";
 const PORT = parseInt(process.env.PORT) || 3000;
 const app = new App();
-app.startServer(PORT, HOST);
+app.startServer(PORT);
