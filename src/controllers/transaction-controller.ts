@@ -21,10 +21,7 @@ export class TransactionController {
       return response.status(500).json({ message: error, error: true });
     }
   };
-  public read = async (
-    request: express.Request,
-    response: express.Response
-  ) => {
+  public read = async (_: express.Request, response: express.Response) => {
     try {
       const ETHPrice = await fetch(COINBASE_API_URL);
       const { data } = await ETHPrice.json();
