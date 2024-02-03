@@ -40,7 +40,7 @@ export class TransactionController implements ITransactionController {
   };
   sendBRLPrice = async (_: express.Request, response: express.Response) => {
     try {
-      const price = this.transactionService.getBRLPrice();
+      const price = await this.transactionService.getBRLPrice();
       return response
         .status(statusCodes.Ok)
         .json({ message: `BRL-ETH: ${price}`, error: false });
