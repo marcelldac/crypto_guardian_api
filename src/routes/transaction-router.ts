@@ -12,7 +12,10 @@ export class TransactionRouter implements ITransactionRouter {
   public getRouter() {
     const transactionRouter = express.Router();
     transactionRouter.use(express.json());
-    transactionRouter.get("/transaction", this.transactionController.read);
+    transactionRouter.get(
+      "/transaction",
+      this.transactionController.sendBRLPrice
+    );
     transactionRouter.post(
       "/validate-transaction",
       this.transactionController.validateTransaction
