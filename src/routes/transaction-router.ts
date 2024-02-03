@@ -1,6 +1,10 @@
 import * as express from "express";
 import { TransactionController } from "../controllers/transaction-controller";
-export class TransactionRouter {
+
+export default interface ITransactionRouter {
+  getRouter(): express.Router;
+}
+export class TransactionRouter implements ITransactionRouter {
   private transactionController: TransactionController;
   constructor() {
     this.transactionController = new TransactionController();
