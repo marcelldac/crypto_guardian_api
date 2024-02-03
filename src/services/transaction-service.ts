@@ -19,7 +19,7 @@ export class TransactionService {
       throw new Error("Error on fetching data");
     }
   }
-  private separateBidValues(rangeBidValue: string): {
+  separateBidValues(rangeBidValue: string): {
     firstElement: number;
     secondElement: number;
   } {
@@ -31,7 +31,7 @@ export class TransactionService {
       secondElement,
     };
   }
-  private isTransactionValid(
+  isTransactionValid(
     firstElement: number,
     intETHValue: number,
     secondElement: number
