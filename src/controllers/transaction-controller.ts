@@ -26,11 +26,11 @@ export class TransactionController implements ITransactionController {
       if (isTransactionValid) {
         return response
           .status(statusCodes.Accepted)
-          .json({ message: "valid", error: false });
+          .json({ message: "Transaction Valid", error: false });
       } else {
         return response
           .status(statusCodes.NotAcceptable)
-          .json({ message: "invalid", error: false });
+          .json({ message: "Increase the amount", error: false });
       }
     } catch (error) {
       return response
@@ -43,7 +43,7 @@ export class TransactionController implements ITransactionController {
       const price = await this.transactionService.getBRLPrice();
       return response
         .status(statusCodes.Ok)
-        .json({ message: `BRL-ETH: ${price}`, error: false });
+        .json({ message: `BRL-ETH: ${price.toFixed(2)}`, error: false });
     } catch (error) {
       return response
         .status(statusCodes.InternalServerError)
