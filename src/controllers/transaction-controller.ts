@@ -1,7 +1,16 @@
 import * as express from "express";
 import { TransactionService } from "../services/transaction-service";
 import { COINBASE_API_URL, statusCodes } from "../utils";
-export class TransactionController {
+
+export default interface ITransactionController {
+  validateTransaction(
+    request: express.Request,
+    response: express.Response
+  ): Promise<any>;
+  read(_: express.Request, response: express.Response): Promise<any>;
+}
+
+export class TransactionController implements ITransactionController {
   private transactionService: TransactionService;
   constructor() {
     this.transactionService = new TransactionService();
