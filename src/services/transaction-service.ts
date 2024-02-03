@@ -8,7 +8,7 @@ export class TransactionService {
       const ETHPrice = await fetch(COINBASE_API_URL);
       const { data } = await ETHPrice.json();
       const intETHValue = parseInt(data.rates.BRL);
-      const { isValid } = this.isTransactionValid(
+      const isValid = this.isTransactionValid(
         firstElement,
         secondElement,
         intETHValue
