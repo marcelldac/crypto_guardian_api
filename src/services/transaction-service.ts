@@ -13,18 +13,14 @@ export default interface ITransactionService {
 }
 
 export interface ISeparateBidValues {
-  firstElement: number;
-  secondElement: number;
+  minValue: number;
+  maxValue: number;
 }
 
 export class TransactionService implements ITransactionService {
   async validateTransaction(rangeBidValue: string): Promise<boolean> {
     try {
-      const { firstElement, secondElement } =
-        this.separateBidValues(rangeBidValue);
-      const ETHPrice = await fetch(COINBASE_API_URL);
-      const { data } = await ETHPrice.json();
-      const intETHValue = parseInt(data.rates.BRL);
+      const { minValue, maxValue } = this.separateBidValues(rangeBidValue);
       const isValid = this.isTransactionValid(
         firstElement,
         secondElement,
@@ -36,16 +32,13 @@ export class TransactionService implements ITransactionService {
       throw new Error("Error on fetching data");
     }
   }
-  separateBidValues(rangeBidValue: string): {
-    firstElement: number;
-    secondElement: number;
-  } {
+  separateBidValues(rangeBidValue: string): ISeparateBidValues {
     const rangeSplit = rangeBidValue.split("-");
-    const firstElement = parseInt(rangeSplit[0]);
-    const secondElement = parseInt(rangeSplit[1]);
+    const minValue = parseInt(rangeSplit[0]);
+    const maxValue = parseInt(rangeSplit[1]);
     const separatedBidValues: ISeparateBidValues = {
-      firstElement,
-      secondElement,
+      minValue,
+      maxValue,
     };
     return separatedBidValues;
   }
