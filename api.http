@@ -1,1 +1,8 @@
 GET http://localhost:3000/api/v1/transaction
+###
+POST http://localhost:3000/api/v1/validate-transaction
+Content-Type: application/json
+
+{
+    "rangeBidValue":"10000-20000"
+}
