@@ -35,11 +35,11 @@ export class TransactionService {
     firstElement: number,
     intETHValue: number,
     secondElement: number
-  ): { isValid: boolean } {
+  ): boolean {
     let isValid = false;
     if (firstElement <= intETHValue && intETHValue <= secondElement) {
       isValid = true;
     }
-    return { isValid };
+    return isValid;
   }
 }
