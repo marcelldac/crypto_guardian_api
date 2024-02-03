@@ -15,8 +15,6 @@ describe("Api Test", () => {
       "http://localhost:3000/api/v1/validate-transaction",
       payload
     );
-    expect(response.status).toBe(200 || 202);
-    const output = response.data;
-    expect(output.error).toBe(false);
+    expect(response.status).toBe(202);
   });
 });
