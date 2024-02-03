@@ -26,10 +26,11 @@ export class TransactionService {
     const rangeSplit = rangeBidValue.split("-");
     const firstElement = parseInt(rangeSplit[0]);
     const secondElement = parseInt(rangeSplit[1]);
-    return {
+    const separatedBidValues: ISeparateBidValues = {
       firstElement,
       secondElement,
     };
+    return separatedBidValues;
   }
   isTransactionValid(
     firstElement: number,
