@@ -9,7 +9,7 @@ export default interface ITransactionService {
     intETHValue: number,
     secondElement: number
   ): boolean;
-  getBRLPrice(): Promise<string>;
+  getBRLPrice(): Promise<number>;
 }
 
 export interface ISeparateBidValues {
@@ -53,9 +53,14 @@ export class TransactionService implements ITransactionService {
     }
     return isValid;
   }
-  async getBRLPrice(): Promise<string> {
+  async getBRLPrice(): Promise<number> {
+    try {
     const { data } = await axios.get(COINBASE_API_URL);
-    const BRLPrice: string = data.rates.BRL;
-    return BRLPrice;
+      const BRLPrice = data.data.rates.BRL;
+      const floatPrice = parseFloat(BRLPrice);
+      return floatPrice;
+    } catch (error) {
+      throw new Error(`Failed to request BRL price: ${error}`);
+    }
   }
 }
