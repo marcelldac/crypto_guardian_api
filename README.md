@@ -18,7 +18,7 @@ Uma API destinada ao público financeiro que visa conectar e facilitar transaç�
 #### Retorna um item
 
 ```http
-  POST /api/v1/transaction
+  POST /api/v1/validate-transaction
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
