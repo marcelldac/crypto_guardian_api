@@ -6,7 +6,7 @@ export class TransactionController {
   constructor() {
     this.transactionService = new TransactionService();
   }
-  public create = async (
+  public validateTransaction = async (
     request: express.Request,
     response: express.Response
   ) => {

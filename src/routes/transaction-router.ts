@@ -9,7 +9,10 @@ export class TransactionRouter {
     const transactionRouter = express.Router();
     transactionRouter.use(express.json());
     transactionRouter.get("/transaction", this.transactionController.read);
-    transactionRouter.post("/transaction", this.transactionController.create);
+    transactionRouter.post(
+      "/validate-transaction",
+      this.transactionController.validateTransaction
+    );
     return transactionRouter;
   }
 }
