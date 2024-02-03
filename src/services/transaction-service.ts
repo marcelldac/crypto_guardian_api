@@ -21,10 +21,12 @@ export class TransactionService implements ITransactionService {
   async validateTransaction(rangeBidValue: string): Promise<boolean> {
     try {
       const { minValue, maxValue } = this.separateBidValues(rangeBidValue);
+      const { data } = await axios.get(COINBASE_API_URL);
+      const ethereumPrice = parseInt(data.data.rates.BRL);
       const isValid = this.isTransactionValid(
-        firstElement,
-        secondElement,
-        intETHValue
+        minValue,
+        maxValue,
+        ethereumPrice
       );
       return isValid;
     } catch (error) {
@@ -42,20 +44,16 @@ export class TransactionService implements ITransactionService {
     };
     return separatedBidValues;
   }
-  isTransactionValid(
-    firstElement: number,
-    intETHValue: number,
-    secondElement: number
-  ): boolean {
+  isTransactionValid(min: number, max: number, ethereum: number): boolean {
     let isValid = false;
-    if (firstElement <= intETHValue && intETHValue <= secondElement) {
+    if (min <= ethereum && ethereum <= max) {
       isValid = true;
     }
     return isValid;
   }
   async getBRLPrice(): Promise<number> {
     try {
-    const { data } = await axios.get(COINBASE_API_URL);
+      const { data } = await axios.get(COINBASE_API_URL);
       const BRLPrice = data.data.rates.BRL;
       const floatPrice = parseFloat(BRLPrice);
       return floatPrice;
