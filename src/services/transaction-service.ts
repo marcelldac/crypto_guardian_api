@@ -1,7 +1,22 @@
 import { COINBASE_API_URL } from "../utils";
 
-export class TransactionService {
-  public async validateTransaction(rangeBidValue: string): Promise<boolean> {
+export default interface ITransactionService {
+  validateTransaction(rangeBidValue: string): Promise<boolean>;
+  separateBidValues(rangeBidValue: string): ISeparateBidValues;
+  isTransactionValid(
+    firstElement: number,
+    intETHValue: number,
+    secondElement: number
+  ): boolean;
+}
+
+export interface ISeparateBidValues {
+  firstElement: number;
+  secondElement: number;
+}
+
+export class TransactionService implements ITransactionService {
+  async validateTransaction(rangeBidValue: string): Promise<boolean> {
     try {
       const { firstElement, secondElement } =
         this.separateBidValues(rangeBidValue);
