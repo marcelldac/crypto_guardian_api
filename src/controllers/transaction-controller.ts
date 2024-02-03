@@ -34,14 +34,12 @@ export class TransactionController implements ITransactionController {
         .json({ message: error, error: true });
     }
   };
-  read = async (_: express.Request, response: express.Response) => {
+  sendBRLPrice = async (_: express.Request, response: express.Response) => {
     try {
-      const ETHPrice = await fetch(COINBASE_API_URL);
-      const { data } = await ETHPrice.json();
-      const BRLEthereumPrice = data.rates.BRL;
+      const price = this.transactionService.getBRLPrice();
       return response
         .status(statusCodes.Ok)
-        .json({ message: `BRL-ETH: ${BRLEthereumPrice}`, error: false });
+        .json({ message: `BRL-ETH: ${price}`, error: false });
     } catch (error) {
       return response
         .status(statusCodes.InternalServerError)

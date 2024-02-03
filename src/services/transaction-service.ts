@@ -58,4 +58,9 @@ export class TransactionService implements ITransactionService {
     }
     return isValid;
   }
+  async getBRLPrice(): Promise<string> {
+    const { data } = await axios.get(COINBASE_API_URL);
+    const BRLPrice: string = data.rates.BRL;
+    return BRLPrice;
+  }
 }
