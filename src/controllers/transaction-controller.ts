@@ -1,13 +1,13 @@
 import * as express from "express";
 import { TransactionService } from "../services/transaction-service";
-import { COINBASE_API_URL, statusCodes } from "../utils";
+import { statusCodes } from "../utils";
 
 export default interface ITransactionController {
   validateTransaction(
     request: express.Request,
     response: express.Response
   ): Promise<any>;
-  read(_: express.Request, response: express.Response): Promise<any>;
+  sendBRLPrice(_: express.Request, response: express.Response): Promise<any>;
 }
 
 export class TransactionController implements ITransactionController {
@@ -19,15 +19,19 @@ export class TransactionController implements ITransactionController {
     request: express.Request,
     response: express.Response
   ) => {
-    const { rangeBidValue } = request.body; /* 1000-2000 */
     try {
+      const { rangeBidValue } = request.body;
       const isTransactionValid =
         await this.transactionService.validateTransaction(rangeBidValue);
-      if (isTransactionValid)
+      if (isTransactionValid) {
         return response
           .status(statusCodes.Accepted)
           .json({ message: "valid", error: false });
-      return response.send({ message: "invalid", error: false });
+      } else {
+        return response
+          .status(statusCodes.NotAcceptable)
+          .json({ message: "invalid", error: false });
+      }
     } catch (error) {
       return response
         .status(statusCodes.InternalServerError)
