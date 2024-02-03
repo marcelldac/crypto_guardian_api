@@ -6,7 +6,7 @@ export class TransactionController {
   constructor() {
     this.transactionService = new TransactionService();
   }
-  public validateTransaction = async (
+  validateTransaction = async (
     request: express.Request,
     response: express.Response
   ) => {
@@ -25,7 +25,7 @@ export class TransactionController {
         .json({ message: error, error: true });
     }
   };
-  public read = async (_: express.Request, response: express.Response) => {
+  read = async (_: express.Request, response: express.Response) => {
     try {
       const ETHPrice = await fetch(COINBASE_API_URL);
       const { data } = await ETHPrice.json();
