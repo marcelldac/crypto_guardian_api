@@ -6,3 +6,10 @@ export const statusCodes = {
   Accepted: 202,
   InternalServerError: 500,
 };
+
+const utils = {
+  COINBASE_API_URL,
+  statusCodes,
+};
+
+export default utils;
