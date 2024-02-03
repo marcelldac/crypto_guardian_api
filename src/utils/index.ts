@@ -5,6 +5,7 @@ export const statusCodes = {
   Ok: 200,
   Accepted: 202,
   InternalServerError: 500,
+  NotAcceptable: 406,
 };
 
 const utils = {
