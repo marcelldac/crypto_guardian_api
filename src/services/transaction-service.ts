@@ -1,4 +1,5 @@
 import { COINBASE_API_URL } from "../utils";
+import axios from "axios";
 
 export default interface ITransactionService {
   validateTransaction(rangeBidValue: string): Promise<boolean>;
@@ -8,6 +9,7 @@ export default interface ITransactionService {
     intETHValue: number,
     secondElement: number
   ): boolean;
+  getBRLPrice(): Promise<string>;
 }
 
 export interface ISeparateBidValues {
