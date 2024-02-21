@@ -49,7 +49,7 @@ export class TransactionController implements ITransactionController {
 
       return response
         .status(statusCodes.Ok)
-        .json({ message: `BRL-ETH: ${price.toFixed(2)}`, error: false });
+        .json({ message: price.toFixed(2), error: false });
     } catch (error) {
       return response
         .status(statusCodes.InternalServerError)
