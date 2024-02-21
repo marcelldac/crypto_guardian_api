@@ -6,20 +6,25 @@ export default interface ITransactionRouter {
 }
 export class TransactionRouter implements ITransactionRouter {
   private transactionController: TransactionController;
+
   constructor() {
     this.transactionController = new TransactionController();
   }
+
   public getRouter() {
     const transactionRouter = express.Router();
     transactionRouter.use(express.json());
+
     transactionRouter.get(
       "/transaction",
       this.transactionController.sendBRLPrice
     );
+
     transactionRouter.post(
       "/validate-transaction",
       this.transactionController.validateTransaction
     );
+
     return transactionRouter;
   }
 }
