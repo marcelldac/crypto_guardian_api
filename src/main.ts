@@ -1,10 +1,9 @@
 import * as cors from "cors";
-import express, { Application, json } from "express";
-
+import * as express from "express";
 import TransactionRouter from "./routes/transaction-router";
 
 export class App {
-  private app: Application;
+  private app: express.Application;
   private transactionRouter: TransactionRouter;
 
   constructor() {
@@ -16,7 +15,7 @@ export class App {
 
   private setupMiddlewares() {
     this.app.use(cors());
-    this.app.use(json());
+    this.app.use(express.json());
   }
 
   private setupRoutes() {
