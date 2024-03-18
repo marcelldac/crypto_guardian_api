@@ -22,7 +22,7 @@
 </div>
 
 
-An API has been developed with the purpose of streamlining transactions involving cryptocurrencies, especially Ethereum. By providing the minimum and maximum values available for the transaction, the API performs validation, returning a boolean result: "true" for feasible transactions and "false" for unfeasible ones. This validation system, when integrated into a properly configured front-end, becomes a powerful tool for facilitating and expediting operations related to cryptocurrencies.
+Crypto Guardian validation API, employed in scenarios where users seek to ascertain the optimal timing for purchasing Ethereum cryptocurrency. Users input their desired minimum and maximum values, and the API verifies whether the provided value range is suitable for the purchase of the crypto or not.
 
 ## Crypto Guardian Documentation
 
