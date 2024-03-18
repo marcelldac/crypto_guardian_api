@@ -1,14 +1,6 @@
-import * as express from "express";
+import { Request, Response } from "express";
 import { TransactionService } from "../services/transaction-service";
-import { statusCodes } from "../utils";
-
-export default interface ITransactionController {
-  validateTransaction(
-    request: express.Request,
-    response: express.Response
-  ): Promise<any>;
-  sendBRLPrice(_: express.Request, response: express.Response): Promise<any>;
-}
+import ITransactionController from "./ITransaction-controller";
 
 export class TransactionController implements ITransactionController {
   private transactionService: TransactionService;
@@ -17,10 +9,7 @@ export class TransactionController implements ITransactionController {
     this.transactionService = new TransactionService();
   }
 
-  validateTransaction = async (
-    request: express.Request,
-    response: express.Response
-  ) => {
+  validateTransaction = async (request: Request, response: Response) => {
     try {
       const { rangeBidValue } = request.body;
 
@@ -29,31 +18,27 @@ export class TransactionController implements ITransactionController {
 
       if (isTransactionValid) {
         return response
-          .status(statusCodes.Accepted)
+          .status(202)
           .json({ message: "Transaction Valid", error: false });
       } else {
         return response
-          .status(statusCodes.NotAcceptable)
+          .status(406)
           .json({ message: "Increase the amount", error: false });
       }
     } catch (error) {
-      return response
-        .status(statusCodes.InternalServerError)
-        .json({ message: error, error: true });
+      return response.status(500).json({ message: error, error: true });
     }
   };
 
-  sendBRLPrice = async (_: express.Request, response: express.Response) => {
+  sendBRLPrice = async (_: Request, response: Response) => {
     try {
       const price = await this.transactionService.getBRLPrice();
 
       return response
-        .status(statusCodes.Ok)
+        .status(200)
         .json({ message: price.toFixed(2), error: false });
     } catch (error) {
-      return response
-        .status(statusCodes.InternalServerError)
-        .json({ message: error, error: true });
+      return response.status(500).json({ message: error, error: true });
     }
   };
 }

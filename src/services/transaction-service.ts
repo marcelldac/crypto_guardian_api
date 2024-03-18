@@ -1,21 +1,9 @@
-import { COINBASE_API_URL } from "../utils";
 import axios from "axios";
 
-export default interface ITransactionService {
-  validateTransaction(rangeBidValue: string): Promise<boolean>;
-  separateBidValues(rangeBidValue: string): ISeparateBidValues;
-  isTransactionValid(
-    firstElement: number,
-    intETHValue: number,
-    secondElement: number
-  ): boolean;
-  getBRLPrice(): Promise<number>;
-}
-
-export interface ISeparateBidValues {
-  minValue: number;
-  maxValue: number;
-}
+import { COINBASE_API_URL } from "../utils";
+import ITransactionService, {
+  ISeparateBidValues,
+} from "./ITransaction-service";
 
 export class TransactionService implements ITransactionService {
   async validateTransaction(rangeBidValue: string): Promise<boolean> {
@@ -34,16 +22,21 @@ export class TransactionService implements ITransactionService {
       throw new Error("Error on fetching data");
     }
   }
+
   separateBidValues(rangeBidValue: string): ISeparateBidValues {
     const rangeSplit = rangeBidValue.split("-");
+
     const minValue = parseInt(rangeSplit[0]);
     const maxValue = parseInt(rangeSplit[1]);
+
     const separatedBidValues: ISeparateBidValues = {
       minValue,
       maxValue,
     };
+
     return separatedBidValues;
   }
+
   isTransactionValid(min: number, max: number, ethereum: number): boolean {
     let isValid = false;
     if (min <= ethereum && ethereum <= max) {

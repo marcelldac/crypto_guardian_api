@@ -1,10 +1,9 @@
-import * as express from "express";
-import { TransactionController } from "../controllers/transaction-controller";
+import { Router, json } from "express";
 
-export default interface ITransactionRouter {
-  getRouter(): express.Router;
-}
-export class TransactionRouter implements ITransactionRouter {
+import { TransactionController } from "../controllers/transaction-controller";
+import ITransactionRouter from "./ITransaction-router";
+
+class TransactionRouter implements ITransactionRouter {
   private transactionController: TransactionController;
 
   constructor() {
@@ -12,8 +11,8 @@ export class TransactionRouter implements ITransactionRouter {
   }
 
   public getRouter() {
-    const transactionRouter = express.Router();
-    transactionRouter.use(express.json());
+    const transactionRouter = Router();
+    transactionRouter.use(json());
 
     transactionRouter.get(
       "/transaction",
@@ -28,3 +27,5 @@ export class TransactionRouter implements ITransactionRouter {
     return transactionRouter;
   }
 }
+
+export default TransactionRouter;
